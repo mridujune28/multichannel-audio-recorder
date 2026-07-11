@@ -1,0 +1,48 @@
+name: Build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch: {}
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: macos-latest
+            artifact-path: build/MultiChannelAudioRecorder_artefacts/Release/MultiChannelAudioRecorder.app
+            artifact-name: MultiChannelAudioRecorder-macOS
+          - os: windows-latest
+            artifact-path: build/MultiChannelAudioRecorder_artefacts/Release/MultiChannelAudioRecorder.exe
+            artifact-name: MultiChannelAudioRecorder-Windows
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Linux audio dev deps
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libasound2-dev libjack-jackd2-dev \
+            libx11-dev libxrandr-dev libxinerama-dev libxcursor-dev \
+            libfreetype6-dev libcurl4-openssl-dev
+
+      - name: Configure
+        run: cmake -B build -DCMAKE_BUILD_TYPE=Release
+
+      - name: Build
+        run: cmake --build build --config Release --parallel
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact-name }}
+          path: ${{ matrix.artifact-path }}
+          if-no-files-found: error

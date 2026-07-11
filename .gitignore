@@ -1,0 +1,12 @@
+build/
+build-*/
+cmake-build-*/
+.vs/
+.vscode/
+*.user
+.DS_Store
+CMakeFiles/
+CMakeCache.txt
+compile_commands.json
+*.xcodeproj/
+*.xcworkspace/
