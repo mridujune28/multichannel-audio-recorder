@@ -4,10 +4,14 @@ Cross-platform (macOS + Windows) professional multi-channel audio recorder.
 Records up to 8 independent audio input streams simultaneously, each to its
 own file, for broadcast logging, podcast studios, and similar use cases.
 
-**Status: V0 — build scaffold only.** No audio recording yet. This proves
-the cross-platform CMake + JUCE pipeline builds cleanly on both macOS and
-Windows before any audio code is written. See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md)
-and the roadmap below.
+**Status: V1 — single-channel WAV recording.** Select an input device and
+sample rate, name the channel, and record to a dated WAV file with a live
+peak/RMS meter and clip indicator. Multi-channel, MP3, and auto-split come
+in later phases — see [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) and the
+roadmap below.
+
+Recordings are saved under `Music/MultiChannelRecorder/Recordings/YYYY/MM/DD/`
+as `ChannelName_YYYYMMDD_HHMMSS.wav`.
 
 ## Tech stack
 
@@ -54,7 +58,7 @@ grab the artifact from the **Actions** tab on GitHub.
 | Phase | Scope |
 |---|---|
 | V0 | ✅ Repo scaffold, CMake+JUCE bootstrap, CI matrix building a trivial window on both OSes |
-| V1 | Single channel, WAV only, one device, start/stop, basic meter |
+| V1 | ✅ Single channel, WAV only, one device, start/stop, basic meter |
 | V2 | Up to 8 channels, independent per-channel device/name/folder config |
 | V3 | MP3 encoding + bitrate options, full sample-rate/bit-depth matrix |
 | V4 | Duration limits, auto-split by time/size, seamless continuous rollover |

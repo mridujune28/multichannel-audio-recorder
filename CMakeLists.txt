@@ -19,11 +19,14 @@ juce_add_gui_app(MultiChannelAudioRecorder
     PRODUCT_NAME    "MultiChannelAudioRecorder"
     COMPANY_NAME    "MultichannelAudioRecorder"
     BUNDLE_ID       "com.mridujune28.multichannelaudiorecorder"
+    MICROPHONE_PERMISSION_ENABLED TRUE
+    MICROPHONE_PERMISSION_TEXT "Multi-Channel Audio Recorder Pro needs access to your audio inputs to record."
 )
 
 target_sources(MultiChannelAudioRecorder
     PRIVATE
         Source/Main.cpp
+        Source/Recording/ChannelRecorder.cpp
         Source/UI/MainComponent.cpp
 )
 
